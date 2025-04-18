@@ -95,15 +95,54 @@
         gap: 1rem;
       }
     }
+.menu {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+}
+
+.menu-icon {
+  font-size: 24px;
+  cursor: pointer;
+  color: #00ff99;
+  user-select: none;
+}
+
+.dropdown {
+  display: none;
+  background-color: #1a1a1a;
+  border: 1px solid #00ff99;
+  padding: 10px;
+  border-radius: 8px;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  text-align: right;
+}
+
+.dropdown a {
+  display: block;
+  color: #66ffcc;
+  text-decoration: none;
+  padding: 5px 0;
+}
+
+.dropdown a:hover {
+  color: #00ff99;
+}
+
   </style>
 </head>
 <body>
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
+  <!-- Navigation Menu -->
+  <nav class="menu">
+    <div class="menu-icon" onclick="toggleMenu()">&#8942;</div>
+    <div class="dropdown" id="dropdownMenu">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </nav>
 
   <header>
@@ -129,8 +168,12 @@
       <p>Instant preview of your HTML code with responsive design.</p>
     </div>
   </section>
-<footer style="margin-top: 3rem; text-align: center; color: #66ffcc; font-size: 0.9rem; border-top: 1px solid #00ff99; padding-top: 1rem;">
-    &copy; 2025 Rustylad.x | All projects open-source | <a href="https://github.com/rustyladx" target="_blank" style="color:#00ff99; text-decoration:none;">GitHub</a>
-  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('dropdownMenu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
 </body>
 </html>
