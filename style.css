@@ -1,0 +1,31 @@
+.projects, .about, .contact {
+  padding: 2em;
+  max-width: 800px;
+  margin: auto;
+}
+
+.project-card {
+  background: #111;
+  margin: 1em 0;
+  padding: 1em;
+  border-left: 5px solid #00ff88;
+}
+
+form input, form textarea {
+  width: 100%;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  background: #222;
+  color: #00ff88;
+  border: none;
+  border-radius: 5px;
+}
+
+form button {
+  padding: 0.7em 1.5em;
+  background: #00ff88;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
