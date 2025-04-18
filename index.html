@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rustylad.x</title>
+  <title>Xipher</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
     * {
@@ -19,25 +19,7 @@
       flex-direction: column;
       align-items: center;
       padding: 2rem;
-    }
-    nav {
-      width: 100%;
-      max-width: 900px;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 2rem;
-      animation: fadeIn 1.5s ease;
-    }
-    nav a {
-      text-decoration: none;
-      color: #00ff99;
-      font-weight: bold;
-      border-bottom: 2px solid transparent;
-      transition: border 0.3s;
-    }
-    nav a:hover {
-      border-bottom: 2px solid #00ff99;
+      user-select: none;
     }
     header {
       text-align: center;
@@ -83,6 +65,47 @@
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* Sidebar Menu */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #111;
+      border-right: 2px solid #00ff99;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 1000;
+    }
+    .sidebar a {
+      padding: 15px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #66ffcc;
+      display: block;
+      transition: 0.2s;
+    }
+    .sidebar a:hover {
+      background-color: #1a1a1a;
+      color: #00ff99;
+    }
+    .openbtn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 30px;
+      background-color: transparent;
+      color: #00ff99;
+      border: none;
+      cursor: pointer;
+      z-index: 1100;
+    }
+    .openbtn:focus {
+      outline: none;
+    }
+
     @media (max-width: 600px) {
       header h1 {
         font-size: 2rem;
@@ -90,63 +113,43 @@
       .tool-card h2 {
         font-size: 1.2rem;
       }
-      nav {
-        flex-direction: column;
-        gap: 1rem;
+    }
+  </style>
+  <script>
+    // Copy Protection
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'c' || e.key === 's')) {
+        e.preventDefault();
+      }
+    });
+
+    // Sidebar toggle
+    function toggleSidebar() {
+      const sidebar = document.getElementById("mySidebar");
+      if (sidebar.style.left === "0px") {
+        sidebar.style.left = "-250px";
+      } else {
+        sidebar.style.left = "0px";
       }
     }
-.menu {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-}
-
-.menu-icon {
-  font-size: 24px;
-  cursor: pointer;
-  color: #00ff99;
-  user-select: none;
-}
-
-.dropdown {
-  display: none;
-  background-color: #1a1a1a;
-  border: 1px solid #00ff99;
-  padding: 10px;
-  border-radius: 8px;
-  position: absolute;
-  top: 30px;
-  right: 0;
-  text-align: right;
-}
-
-.dropdown a {
-  display: block;
-  color: #66ffcc;
-  text-decoration: none;
-  padding: 5px 0;
-}
-
-.dropdown a:hover {
-  color: #00ff99;
-}
-
-  </style>
+  </script>
 </head>
 <body>
-  <!-- Navigation Menu -->
-  <nav class="menu">
-    <div class="menu-icon" onclick="toggleMenu()">&#8942;</div>
-    <div class="dropdown" id="dropdownMenu">
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </nav>
+
+  <!-- Menu Button -->
+  <button class="openbtn" onclick="toggleSidebar()">☰</button>
+
+  <!-- Sidebar Menu -->
+  <div id="mySidebar" class="sidebar">
+    <a href="#">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
   <header>
-    <h1>Rustylad.x</h1>
+    <h1>@Rustylad.x</h1>
     <p>Memes | Hacking | Custom Tools</p>
   </header>
 
@@ -168,12 +171,5 @@
       <p>Instant preview of your HTML code with responsive design.</p>
     </div>
   </section>
-
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('dropdownMenu');
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    }
-  </script>
 </body>
 </html>
