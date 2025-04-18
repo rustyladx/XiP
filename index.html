@@ -1,7 +1,8 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rustylad</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
@@ -18,6 +19,25 @@
       flex-direction: column;
       align-items: center;
       padding: 2rem;
+    }
+    nav {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      animation: fadeIn 1.5s ease;
+    }
+    nav a {
+      text-decoration: none;
+      color: #00ff99;
+      font-weight: bold;
+      border-bottom: 2px solid transparent;
+      transition: border 0.3s;
+    }
+    nav a:hover {
+      border-bottom: 2px solid #00ff99;
     }
     header {
       text-align: center;
@@ -70,14 +90,27 @@
       .tool-card h2 {
         font-size: 1.2rem;
       }
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
     }
   </style>
 </head>
 <body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
   <header>
     <h1>Rustylad</h1>
     <p>Memes | Ethical Hacking | Custom Tools</p>
   </header>
+
   <section class="tools">
     <div class="tool-card">
       <h2>IP Logger</h2>
@@ -96,5 +129,8 @@
       <p>Instant preview of your HTML code with responsive design.</p>
     </div>
   </section>
+<footer style="margin-top: 3rem; text-align: center; color: #66ffcc; font-size: 0.9rem; border-top: 1px solid #00ff99; padding-top: 1rem;">
+    &copy; 2025 Rustylad (Xipher) | All projects open-source | <a href="https://github.com/rustyladx" target="_blank" style="color:#00ff99; text-decoration:none;">GitHub</a>
+  </footer>
 </body>
 </html>
