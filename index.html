@@ -1,4 +1,5 @@
-!-- index.html --><!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -6,19 +7,112 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   <script src="script.js" defer></script>
+  <link rel="icon" href="favicon.ico">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background: black;
+      color: #00ff00;
+      overflow-x: hidden;
+    }
+
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: .15em solid #00ff00;
+      animation: typing 4s steps(30, end), blink .75s step-end infinite;
+      font-size: 1.8rem;
+      margin: 1rem;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    .hero {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .terminal-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ff00aa;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .terminal-box pre {
+      margin: 0;
+      color: #00ff00;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background: #111;
+      padding-top: 3rem;
+      transition: 0.3s;
+      z-index: 1000;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 1rem;
+      color: #00ff00;
+      text-decoration: none;
+    }
+
+    .menu-toggle {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    .open .sidebar {
+      left: 0;
+    }
+  </style>
+  <script>
+    function toggleMenu() {
+      document.body.classList.toggle('open');
+    }
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey && e.key === 'u') || (e.ctrlKey && e.key === 'c')) {
+        e.preventDefault();
+      }
+    });
+  </script>
 </head>
 <body>
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
   <div class="sidebar">
-    <h2>Menu</h2>
     <a href="index.html">Home</a>
     <a href="projects.html">Projects</a>
     <a href="contact.html">Contact</a>
-  </div>  <div class="main">
-    <div class="terminal-intro">
-      <p>[BOOTING Rustylad...]</p>
-      <p>[ACCESS GRANTED]</p>
-      <h1 class="glow">Rustylad</h1>
+  </div>
+
+  <div class="hero">
+  <div class="terminal-intro">
+   <h1 class="glow">Rustylad</h1>
       <span id="typed-text"></span>
-    </div>
   </div>
 </body>
+</html>
