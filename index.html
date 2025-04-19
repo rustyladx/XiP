@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Xipher</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
- <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rustylad</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   <script src="script.js" defer></script>
+  <link rel="icon" href="favicon.ico">
   <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
-      color: #00ff99;
-      padding: 2rem;
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background: black;
+      color: #00ff00;
+      overflow-x: hidden;
     }
 
-.typewriter {
+    .typewriter {
       overflow: hidden;
       white-space: nowrap;
       border-right: .15em solid #00ff00;
@@ -37,127 +35,84 @@
       50% { border-color: transparent; }
     }
 
-    header {
+    .hero {
+      padding: 3rem 2rem;
       text-align: center;
-      margin-bottom: 2rem;
-      animation: fadeIn 2s ease-out;
     }
-    header h1 { font-size: 3rem; }
-    header p {
-      margin-top: 0.5rem;
-      font-size: 1.2rem;
-      color: #66ffcc;
-    }
-    .tools {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      max-width: 900px;
+
+    .terminal-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ff00aa;
+      max-width: 800px;
       margin: auto;
     }
-    .tool-card {
-      background-color: #1a1a1a;
-      padding: 1rem;
-      border: 2px solid #00ff99;
-      border-radius: 12px;
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .tool-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #00ff99;
-    }
-    .tool-card h2 { font-size: 1.4rem; margin-bottom: 0.5rem; }
-    .tool-card p { font-size: 0.95rem; color: #b3ffe0; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @media (max-width: 600px) {
-      header h1 { font-size: 2rem; }
-      .tool-card h2 { font-size: 1.2rem; }
+
+    .terminal-box pre {
+      margin: 0;
+      color: #00ff00;
     }
 
-    /* Sidebar Menu */
     .sidebar {
       position: fixed;
-      top: 0; left: -250px;
+      top: 0;
+      left: -250px;
       width: 250px;
       height: 100%;
-      background-color: #111;
-      border-right: 2px solid #00ff99;
+      background: #111;
+      padding-top: 3rem;
       transition: 0.3s;
-      padding-top: 60px;
       z-index: 1000;
     }
+
     .sidebar a {
-      padding: 15px 25px;
-      text-decoration: none;
-      font-size: 18px;
-      color: #66ffcc;
       display: block;
-      transition: 0.2s;
+      padding: 1rem;
+      color: #00ff00;
+      text-decoration: none;
     }
-    .sidebar a:hover {
-      background-color: #1a1a1a;
-      color: #00ff99;
-    }
-    .openbtn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      font-size: 24px;
-      background-color: transparent;
-      color: #00ff99;
-      border: none;
+
+    .menu-toggle {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      padding: 0.5rem;
       cursor: pointer;
-      z-index: 1100;
     }
-    .openbtn:focus { outline: none; }
+
+    .open .sidebar {
+      left: 0;
+    }
   </style>
-</head>
-<body>
-  <button class="openbtn" onclick="toggleSidebar()">♦</button>
-  <div id="mySidebar" class="sidebar">
-    <a href="index.html">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </div>
-
-  <header>
-    <h1>Xenon</h1>
-   <span id="typed-text"></span>
-  </header>
-  <section class="tools">
-    <div class="tool-card">
-      <h2>IP Logger</h2>
-      <p>Track IP, location & device info through smart links.</p>
-    </div>
-    <div class="tool-card">
-      <h2>Stealth Tracker APK</h2>
-      <p>APK disguised as SIM Toolkit. Sends GPS data silently.</p>
-    </div>
-    <div class="tool-card">
-      <h2>Termux Bot (C.A.I.N)</h2>
-      <p>AI that scans images, extracts intel, builds reports.</p>
-    </div>
-    <div class="tool-card">
-      <h2>Live HTML Server</h2>
-      <p>Instant preview of your HTML code with responsive design.</p>
-    </div>
-  </section>
-
   <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById("mySidebar");
-      sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
+    function toggleMenu() {
+      document.body.classList.toggle('open');
     }
-    document.addEventListener('DOMContentLoaded', () => {
-      document.addEventListener('contextmenu', e => e.preventDefault());
-      document.addEventListener('copy', e => e.preventDefault());
-      document.addEventListener('selectstart', e => e.preventDefault());
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey && e.key === 'u') || (e.ctrlKey && e.key === 'c')) {
+        e.preventDefault();
+      }
     });
   </script>
+</head>
+<body>
+  <button class="menu-toggle" onclick="toggleMenu()">♦</button>
+  <div class="sidebar">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+<a href="about.html">About Me</a>
+  </div>
+  <div class="hero">
+  <div class="terminal-intro">
+   <h1 class="glow">Rustylad</h1>
+      <span id="typed-text"></span>
+  </div>
 </body>
 </html>
