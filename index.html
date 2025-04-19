@@ -1,76 +1,24 @@
-<!DOCTYPE html><html lang="en">
+!-- index.html --><!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rustylad</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background: #000;
-      color: #00ff00;
-      font-family: monospace;
-      padding: 2rem;
-      line-height: 1.6;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 0 4px #00ff00;
-    }
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.85;
-    }
-    nav {
-      text-align: center;
-      margin: 2rem 0;
-    }
-    nav a {
-      color: #00ff00;
-      text-decoration: none;
-      margin: 0 1rem;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    main {
-      max-width: 800px;
-      margin: auto;
-      padding: 1rem;
-      background: #111;
-      border: 1px solid #00ff00;
-      border-radius: 10px;
-    }
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      opacity: 0.6;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Rustylad</h1>
-    <p>Developer. Hacker. Creator.</p>
-  </header>  <nav>
+  <div class="sidebar">
+    <h2>Menu</h2>
     <a href="index.html">Home</a>
     <a href="projects.html">Projects</a>
     <a href="contact.html">Contact</a>
-  </nav>  <main>
-    <p>Welcome to my digital base. I'm <strong>Rustylad</strong>, also known as <em>rustylad.x</em>. I create tools, scripts, and web apps with a focus on ethical hacking, coding, and creativity.</p>
-    <p>Explore my projects, or drop me a message through the contact page. Always building, always learning.</p>
-  </main>  <footer>
-    <p>&copy; 2025 Rustylad. All rights reserved.</p>
-  </footer>
+  </div>  <div class="main">
+    <div class="terminal-intro">
+      <p>[BOOTING Rustylad...]</p>
+      <p>[ACCESS GRANTED]</p>
+      <h1 class="glow">Rustylad</h1>
+      <span id="typed-text"></span>
+    </div>
+  </div>
 </body>
-</html>
