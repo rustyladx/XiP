@@ -1,173 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Projects - Rustylad.x</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rustylad | Projects</title>
   <style>
     body {
-      background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
-      color: #00ff99;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      margin: 0;
       padding: 2rem;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: #66ffcc;
-    }
-    .project {
-      border: 2px solid #00ff99;
-      padding: 1rem;
-      border-radius: 10px;
-      background-color: #1a1a1a;
-      margin: 1rem auto;
-      max-width: 700px;
-      animation: fadeIn 1s ease;
-    }
-    .project h2 {
-      margin-bottom: 0.5rem;
-    }
-    .project p {
-      color: #b3ffe0;
-      font-size: 1rem;
-    }
-    a {
-      color: #00ffcc;
-      text-decoration: underline;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-.menu {
-  position: absolute;
-  top: 20px;
-  right: 30px;
+    }h1 {
+  text-align: center;
+  text-shadow: 0 0 5px #00ff00;
 }
 
-.menu-icon {
-  font-size: 24px;
-  cursor: pointer;
-  color: #00ff99;
-  user-select: none;
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
-.dropdown {
-  display: none;
-  background-color: #1a1a1a;
-  border: 1px solid #00ff99;
-  padding: 10px;
-  border-radius: 8px;
-  position: absolute;
-  top: 30px;
-  right: 0;
-  text-align: right;
+.card {
+  background: #111;
+  border: 1px solid #00ff00;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 0 15px #00ff0088;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.dropdown a {
-  display: block;
-  color: #66ffcc;
-  text-decoration: none;
-  padding: 5px 0;
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #00ff00cc;
 }
 
-.dropdown a:hover {
-  color: #00ff99;
+.card h2 {
+  margin-top: 0;
 }
 
+.card p {
+  margin: 1rem 0;
+}
 
-/* Sidebar Menu */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -250px;
-  width: 250px;
-  height: 100%;
-  background-color: #111;
-  border-right: 2px solid #00ff99;
-  transition: 0.3s;
-  padding-top: 60px;
-  z-index: 1000;
-}
-.sidebar a {
-  padding: 15px 25px;
-  text-decoration: none;
-  font-size: 18px;
-  color: #66ffcc;
-  display: block;
-  transition: 0.2s;
-}
-.sidebar a:hover {
-  background-color: #1a1a1a;
-  color: #00ff99;
-}
-.openbtn {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  font-size: 24px;
-  background-color: transparent;
-  color: #00ff99;
-  border: none;
-  cursor: pointer;
-  z-index: 1100;
-}
-.openbtn:focus {
-  outline: none;
+.card a {
+  color: #00ff00;
+  text-decoration: underline;
 }
 
   </style>
 </head>
 <body>
-
-<!-- Menu Button -->
-<button class="openbtn" onclick="toggleSidebar()">♦</button>
-
-<!-- Sidebar Menu -->
-<div id="mySidebar" class="sidebar">
-  <a href="index.html">Home</a>
-  <a href="projects.html">Projects</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
-</div>
   <h1>My Projects</h1>
-
-  <div class="project">
-    <h2>IP Logger</h2>
-    <p>A stealthy logger that captures IP, location, and device info.</p>
+  <div class="projects">
+    <div class="card">
+      <h2>Project One</h2>
+      <p>A brief description of your first cool project goes here.</p>
+      <a href="#">View Code</a>
+    </div>
+    <div class="card">
+      <h2>Project Two</h2>
+      <p>Description of another awesome tool or hack you've made.</p>
+      <a href="#">Try Demo</a>
+    </div>
+    <div class="card">
+      <h2>Project Three</h2>
+      <p>Maybe something using Termux or an encryption system.</p>
+      <a href="#">More Info</a>
+    </div>
   </div>
-
-  <div class="project">
-    <h2>Stealth Tracker APK</h2>
-    <p>Custom APK disguised as SIM Toolkit to track GPS silently.</p>
-  </div>
-
-  <div class="project">
-    <h2>Termux Bot (C.A.I.N)</h2>
-    <p>Terminal-based AI that analyzes images for intel and generates reports.</p>
-  </div>
-
-  <div class="project">
-    <h2>Live HTML Server</h2>
-    <p>A local web server that shows your HTML output live with mobile responsiveness.</p>
-  </div>
-
-<script>
-  function toggleSidebar() {
-    const sidebar = document.getElementById("mySidebar");
-    sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
-  }
-
-  // Disable copy, right-click, text selection
-  document.addEventListener('DOMContentLoaded', () => {
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('copy', e => e.preventDefault());
-    document.addEventListener('selectstart', e => e.preventDefault());
-  });
-</script>
-
 </body>
 </html>
