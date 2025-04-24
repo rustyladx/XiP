@@ -1,262 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rustylad | Projects</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects | Rustylad</title>
   <link rel="icon" href="favicon.ico" />
-  <style>
-       :root {
-      --primary-color: #e94040;
-      --secondary-color: #170000;
-      --background-color: #ecf0f1;
-      --text-color: #170000;
-      --highlight-color: #dc2e2e;
-      --font-family: 'Montserrat', sans-serif;
-      --text-color2: #e8e8e8;
-    }
-
-    body {
-      font-family: var(--font-family);
-      background: var(--background-color);
-      color: var(--text-color);
-      overflow-x: hidden;
-      padding: 2rem;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    body.dark-mode {
-      background: #0e0101;
-      color: var(--text-color2);
-    }
-
-    /* Blur overlay */
-    #overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      backdrop-filter: blur(5px);
-      background: rgba(0, 0, 0, 0.2);
-      z-index: 900;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    #overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* Sidebar styles */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -50%;
-      width: 50%;
-      height: 100%;
-      background-color: var(--background-color); /* matches theme */
-      border-right: 2px solid var(--primary-color);
-      transition: left 0.4s ease;
-      padding-top: 60px;
-      z-index: 1000;
-    }
-
-    body.dark-mode .sidebar {
-      background-color: #0c0c0c;
-      border-color: var(--highlight-color);
-    }
-
-    .sidebar a {
-      padding: 15px 25px;
-      text-decoration: none;
-      font-size: 18px;
-      color: var(--primary-color);
-      display: block;
-      transition: 0.2s;
-    }
-
-    body.dark-mode .sidebar a {
-      color: var(--text-color2);
-    }
-
-    .sidebar a:hover {
-      background-color: var(--highlight-color);
-      color: var(--background-color);
-    }
-
-    body.dark-mode .sidebar a:hover {
-      background-color: var(--primary-color);
-      color: #000;
-    }
-
-    .theme-toggle-wrapper {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1100;
-    }
-
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 45px;
-      height: 24px;
-    }
-
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: 0.4s;
-      border-radius: 34px;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      transition: 0.4s;
-      border-radius: 50%;
-    }
-
-    input:checked + .slider {
-      background-color: var(--primary-color);
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(21px);
-    }
-
-    .menu-icon {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      width: 30px;
-      height: 25px;
-      z-index: 1100;
-      cursor: pointer;
-    }
-
-    .menu-line {
-      width: 100%;
-      height: 3px;
-      background-color: var(--primary-color);
-      position: absolute;
-      left: 0;
-      transition: 0.4s;
-    }
-
-    .menu-line:first-child {
-      top: 6px;
-    }
-
-    .menu-line:last-child {
-      top: 16px;
-    }
-
-    .menu-icon.open .menu-line:first-child {
-      transform: rotate(45deg);
-      top: 11px;
-    }
-
-    .menu-icon.open .menu-line:last-child {
-      transform: rotate(-45deg);
-      top: 11px;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 2.5rem;
-      color: var(--primary-color);
-      text-shadow: 0 0 10px var(--highlight-color);
-    }
-
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      max-width: 1200px;
-      margin: 2rem auto;
-    }
-
-    .card {
-      background: var(--background-color);
-      border: 2px solid var(--primary-color);
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: 0 0 10px var(--primary-color);
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-align: center;
-    }
-
-    body.dark-mode .card {
-      background: #170000;
-      border-color: var(--highlight-color);
-      box-shadow: 0 0 10px var(--highlight-color);
-    }
-
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px var(--highlight-color);
-    }
-
-    .card h2 {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 1.4rem;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .card p {
-      color: var(--text-color);
-    }
-
-    body.dark-mode .card p {
-      color: var(--text-color2);
-    }
-
-    .card a {
-      display: inline-block;
-      margin-top: 1rem;
-      color: var(--primary-color);
-      text-decoration: underline;
-    }
-
-    body.dark-mode .card a {
-      color: var(--text-color2);
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- Menu Icon -->
   <div class="menu-icon" onclick="toggleSidebar(this)">
     <div class="menu-line"></div>
     <div class="menu-line"></div>
   </div>
 
+  <!-- Dark Mode Toggle -->
   <div class="theme-toggle-wrapper">
     <label class="switch">
-  <input type="checkbox" id="themeToggle">
-  <span class="slider"></span>
+      <input type="checkbox" id="themeToggle">
+      <span class="slider"></span>
     </label>
   </div>
 
+  <!-- Sidebar -->
   <div id="mySidebar" class="sidebar">
     <a href="index.html">Home</a>
     <a href="projects.html">Projects</a>
@@ -264,71 +31,86 @@
     <a href="contact.html">Contact</a>
   </div>
 
+  <!-- Overlay -->
   <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
-  <div class="projects">
-    <div class="card">
-      <h2>Project One</h2>
-      <p>A brief description of your first cool project goes here.</p>
-      <a href="#">View Code</a>
-    </div>
-    <div class="card">
-      <h2>Project Two</h2>
-      <p>Description of another awesome tool or hack you've made.</p>
-      <a href="#">Try Demo</a>
-    </div>
-    <div class="card">
-      <h2>Project Three</h2>
-      <p>Maybe something using Termux or an encryption system.</p>
-      <a href="#">More Info</a>
-    </div>
-  </div>
 
-<script>
-  const themeToggle = document.getElementById("themeToggle");
-  const sidebar = document.getElementById("mySidebar");
-  const overlay = document.getElementById("overlay");
-  const menuIcon = document.querySelector(".menu-icon");
+  <!-- Header -->
+  <header>
+    
+    <span id="typed-text">My collection of creations and tools.</span>
+  </header>
 
-  // Load theme on page load
-  document.addEventListener("DOMContentLoaded", () => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      document.body.classList.add("dark-mode");
-      if (themeToggle) themeToggle.checked = true;
+  <!-- Tools Section -->
+  <section class="tools">
+    <div class="tool-card">
+      <h2>GOD.EYE</h2>
+      <p>Advanced Google dorking & OSINT bot with stealth features.</p>
+    </div>
+    <div class="tool-card">
+      <h2>WEB STARTUP</h2>
+      <p>Dark-mode hacker-themed website with a sidebar and animations.</p>
+    </div>
+    <div class="tool-card">
+      <h2>Termux Setup (C.A.I.N)</h2>
+      <p>Custom AI-driven Termux setup with neon prompts and bot system.</p>
+    </div>
+    <div class="tool-card">
+      <h2>Stealth APK</h2>
+      <p>Disguised Android app that silently sends GPS and device info.</p>
+    </div>
+    <div class="tool-card">
+      <h2>Real-Time Termux Link</h2>
+      <p>Command mirroring between multiple devices using Tailscale.</p>
+    </div>
+    <div class="tool-card">
+      <h2>USB Worm Payload</h2>
+      <p>Autocopying worm that hides and spreads through USB drives.</p>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script>
+    const themeToggle = document.getElementById("themeToggle");
+    const sidebar = document.getElementById("mySidebar");
+    const overlay = document.getElementById("overlay");
+    const menuIcon = document.querySelector(".menu-icon");
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        if (themeToggle) themeToggle.checked = true;
+      }
+
+      document.addEventListener("contextmenu", e => e.preventDefault());
+      document.addEventListener("copy", e => e.preventDefault());
+      document.addEventListener("selectstart", e => e.preventDefault());
+    });
+
+    if (themeToggle) {
+      themeToggle.addEventListener("change", () => {
+        if (themeToggle.checked) {
+          document.body.classList.add("dark-mode");
+          localStorage.setItem("theme", "dark");
+        } else {
+          document.body.classList.remove("dark-mode");
+          localStorage.setItem("theme", "light");
+        }
+      });
     }
 
-    // Disable right-click and copy
-    document.addEventListener("contextmenu", e => e.preventDefault());
-    document.addEventListener("copy", e => e.preventDefault());
-    document.addEventListener("selectstart", e => e.preventDefault());
-  });
+    function toggleSidebar(icon) {
+      const isOpen = sidebar.style.left === "0px";
+      sidebar.style.left = isOpen ? "-50%" : "0px";
+      overlay.classList.toggle("active", !isOpen);
+      icon.classList.toggle("open", !isOpen);
+    }
 
-  // Toggle theme and save preference
-  if (themeToggle) {
-    themeToggle.addEventListener("change", () => {
-      if (themeToggle.checked) {
-        document.body.classList.add("dark-mode");
-        localStorage.setItem("theme", "dark");
-      } else {
-        document.body.classList.remove("dark-mode");
-        localStorage.setItem("theme", "light");
-      }
-    });
-  }
-
-  // Sidebar controls
-  function toggleSidebar(icon) {
-    const isOpen = sidebar.style.left === "0px";
-    sidebar.style.left = isOpen ? "-50%" : "0px";
-    overlay.classList.toggle("active", !isOpen);
-    icon.classList.toggle("open", !isOpen);
-  }
-
-  function closeSidebar() {
-    sidebar.style.left = "-50%";
-    overlay.classList.remove("active");
-    if (menuIcon) menuIcon.classList.remove("open");
-  }
-</script>
+    function closeSidebar() {
+      sidebar.style.left = "-50%";
+      overlay.classList.remove("active");
+      if (menuIcon) menuIcon.classList.remove("open");
+    }
+  </script>
 </body>
 </html>
