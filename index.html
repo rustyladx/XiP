@@ -2,117 +2,372 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rustylad</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.ico" />
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   <script src="script.js" defer></script>
-  <link rel="icon" href="favicon.ico">
+
   <style>
+    :root {
+      --primary-color: #e94040;
+      --secondary-color: #170000;
+      --background-color: #ecf0f1;
+      --text-color: #170000;
+      --highlight-color: #dc2e2e;
+      --font-family: 'Montserrat', sans-serif;
+      --text-color2: #e8e8e8;
+    }
+
     body {
-      margin: 0;
-      font-family: 'Courier New', monospace;
-      background: black;
-      color: #00ff00;
+      font-family: var(--font-family);
+      background: var(--background-color);
+      color: var(--text-color);
       overflow-x: hidden;
+      padding: 2rem;
+      transition: background 0.3s, color 0.3s;
     }
 
-    .typewriter {
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: .15em solid #00ff00;
-      animation: typing 4s steps(30, end), blink .75s step-end infinite;
-      font-size: 1.8rem;
-      margin: 1rem;
+    body.dark-mode {
+      background: #0e0101;
+      color: var(--text-color2);
     }
 
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
+    /* Blur overlay */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(5px);
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 900;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
     }
 
-    @keyframes blink {
-      50% { border-color: transparent; }
+    #overlay.active {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    .hero {
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-
-    .terminal-box {
-      background: #111;
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #00ff00aa;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    .terminal-box pre {
-      margin: 0;
-      color: #00ff00;
-    }
-
+    /* Sidebar styles */
     .sidebar {
       position: fixed;
       top: 0;
-      left: -250px;
-      width: 250px;
+      left: -50%;
+      width: 50%;
       height: 100%;
-      background: #111;
-      padding-top: 3rem;
-      transition: 0.3s;
+      background-color: var(--background-color); /* matches theme */
+      border-right: 2px solid var(--primary-color);
+      transition: left 0.4s ease;
+      padding-top: 60px;
       z-index: 1000;
     }
 
-    .sidebar a {
-      display: block;
-      padding: 1rem;
-      color: #00ff00;
-      text-decoration: none;
+    body.dark-mode .sidebar {
+      background-color: #0c0c0c;
+      border-color: var(--highlight-color);
     }
 
-    .menu-toggle {
+    .sidebar a {
+      padding: 15px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      color: var(--primary-color);
+      display: block;
+      transition: 0.2s;
+    }
+
+    body.dark-mode .sidebar a {
+      color: var(--text-color2);
+    }
+
+    .sidebar a:hover {
+      background-color: var(--highlight-color);
+      color: var(--background-color);
+    }
+
+    body.dark-mode .sidebar a:hover {
+      background-color: var(--primary-color);
+      color: #000;
+    }
+
+    .theme-toggle-wrapper {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1100;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 45px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
       position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background: none;
-      border: 2px solid #00ff00;
-      color: #00ff00;
-      padding: 0.5rem;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary-color);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(21px);
+    }
+
+    .menu-icon {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 30px;
+      height: 25px;
+      z-index: 1100;
       cursor: pointer;
     }
 
-    .open .sidebar {
+    .menu-line {
+      width: 100%;
+      height: 3px;
+      background-color: var(--primary-color);
+      position: absolute;
       left: 0;
-    }
-  </style>
-  <script>
-    function toggleMenu() {
-      document.body.classList.toggle('open');
+      transition: 0.4s;
     }
 
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.addEventListener('keydown', function(e) {
-      if ((e.ctrlKey && e.key === 'u') || (e.ctrlKey && e.key === 'c')) {
-        e.preventDefault();
+    .menu-line:first-child {
+      top: 6px;
+    }
+
+    .menu-line:last-child {
+      top: 16px;
+    }
+
+    .menu-icon.open .menu-line:first-child {
+      transform: rotate(45deg);
+      top: 11px;
+    }
+
+    .menu-icon.open .menu-line:last-child {
+      transform: rotate(-45deg);
+      top: 11px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      animation: fadeIn 2s ease-out;
+    }
+
+    header h1 {
+      font-family: "montserrat", sans-serif;
+      font-weight: 900;
+      font-size: 3rem;
+      color: var(--primary-color);
+      animation: glowZoom 3s ease-in-out infinite;
+    }
+
+    #typed-text {
+      display: inline;
+      text-align: center;
+      margin-top: 0.1rem;
+      font-size: 1rem;
+      color: var(--text-color);
+    }
+
+    body.dark-mode #typed-text {
+      color: var(--text-color2);
+    }
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .tool-card {
+      background-color: var(--background-color);
+      padding: 0.6rem 1rem;
+      border: 2px solid var(--primary-color);
+      border-radius: 12px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    body.dark-mode .tool-card {
+      background-color: #170000;
+      border: 2px solid var(--primary-color);
+    }
+
+    .tool-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--highlight-color);
+    }
+
+    .tool-card h2 {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .tool-card p {
+      font-size: 1rem;
+      color: var(--text-color);
+    }
+
+    body.dark-mode .tool-card p {
+      color: var(--text-color2);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
       }
-    });
-  </script>
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glowZoom {
+      0% {
+        transform: scale(0.95);
+        text-shadow: 0 0 5px var(--primary-color);
+      }
+      50% {
+        transform: scale(1);
+        text-shadow: 0 0 20px var(--highlight-color);
+      }
+      100% {
+        transform: scale(0.95);
+        text-shadow: 0 0 5px var(--primary-color);
+      }
+    }
+  </style>
 </head>
 <body>
-  <button class="menu-toggle" onclick="toggleMenu()">♦</button>
-  <div class="sidebar">
+
+  <!-- Overlay for blur -->
+  <div id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- Menu button -->
+  <div class="menu-icon" onclick="toggleSidebar(this)">
+    <div class="menu-line"></div>
+    <div class="menu-line"></div>
+  </div>
+
+  <!-- Dark mode toggle -->
+  <div class="theme-toggle-wrapper">
+    <label class="switch">
+      <input type="checkbox" id="themeToggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <!-- Sidebar -->
+  <div id="mySidebar" class="sidebar">
     <a href="index.html">Home</a>
     <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
-<a href="about.html">About Me</a>
   </div>
-  <div class="hero">
-  <div class="terminal-intro">
-   <h1 class="glow">Rustylad</h1>
-      <span id="typed-text"></span>
-  </div>
+
+  <!-- Header -->
+  <header>
+    <h1 class="glow">XiP</h1>
+    <span id="typed-text"></span>
+  </header>
+
+  <!-- Tools section -->
+  <section class="tools">
+    <div class="tool-card">
+      <h2>IP Logger</h2>
+      <p>Track IP, location & device info through smart links.</p>
+    </div>
+    <div class="tool-card">
+      <h2>Stealth Tracker APK</h2>
+      <p>APK disguised as SIM Toolkit. Sends GPS data silently.</p>
+    </div>
+    <div class="tool-card">
+      <h2>Termux Bot (C.A.I.N)</h2>
+      <p>AI that scans images, extracts intel, builds reports.</p>
+    </div>
+    <div class="tool-card">
+      <h2>Live HTML Server</h2>
+      <p>Instant preview of your HTML code with responsive design.</p>
+    </div>
+  </section>
+
+  <!-- JavaScript -->
+  <script>
+    const sidebar = document.getElementById("mySidebar");
+    const overlay = document.getElementById("overlay");
+    const themeToggle = document.getElementById("themeToggle");
+    const menuIcon = document.querySelector(".menu-icon");
+
+    // Sound files (use your own hosted links or local ones)
+    const clickSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3");
+    const toggleSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-switch-on-1121.mp3");
+
+    function toggleSidebar(icon) {
+      const isOpen = sidebar.style.left === "0px";
+      sidebar.style.left = isOpen ? "-50%" : "0px";
+      overlay.classList.toggle("active", !isOpen);
+      icon.classList.toggle("open");
+      clickSound.play();
+    }
+
+    function closeSidebar() {
+      sidebar.style.left = "-50%";
+      menuIcon.classList.remove("open");
+      overlay.classList.remove("active");
+    }
+
+    themeToggle.addEventListener("change", () => {
+      document.body.classList.toggle("dark-mode");
+      toggleSound.play();
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("contextmenu", e => e.preventDefault());
+      document.addEventListener("copy", e => e.preventDefault());
+      document.addEventListener("selectstart", e => e.preventDefault());
+    });
+  </script>
 </body>
 </html>
