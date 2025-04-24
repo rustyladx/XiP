@@ -1,87 +1,109 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rustylad | Contact</title>
-  <style>
-    body {
-      background: #000;
-      color: #00ff00;
-      font-family: 'Courier New', monospace;
-      margin: 0;
-      padding: 2rem;
-    }h1 {
-  text-align: center;
-  margin-bottom: 2rem;
-  text-shadow: 0 0 6px #00ff00;
-}
-
-form {
-  max-width: 600px;
-  margin: auto;
-  background: #111;
-  padding: 2rem;
-  border-radius: 10px;
-  border: 1px solid #00ff00;
-  box-shadow: 0 0 20px #00ff0055;
-}
-
-input, textarea {
-  width: 100%;
-  background: #000;
-  color: #00ff00;
-  border: 1px solid #00ff00;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border-radius: 5px;
-  font-family: 'Courier New', monospace;
-}
-
-input:focus, textarea:focus {
-  outline: none;
-  box-shadow: 0 0 10px #00ff00;
-}
-
-button {
-  background: transparent;
-  color: #00ff00;
-  border: 1px solid #00ff00;
-  padding: 0.75rem 2rem;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: 'Courier New', monospace;
-  transition: background 0.3s, box-shadow 0.3s;
-}
-
-button:hover {
-  background: #00ff00;
-  color: #000;
-  box-shadow: 0 0 15px #00ff00cc;
-}
-
-.status {
-  text-align: center;
-  margin-top: 1rem;
-  font-weight: bold;
-}
-
-  </style>
-  <script>
-    function showStatus(message, success = true) {
-      const status = document.getElementById('status');
-      status.textContent = message;
-      status.style.color = success ? '#00ff00' : 'red';
-    }
-  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | Rustylad</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Contact Me</h1>
-  <form action="https://formspree.io/f/xkgjdrza" method="POST" onsubmit="showStatus('Sending...');">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
-    <button type="submit">Send</button>
-    <div id="status" class="status"></div>
-  </form>
+
+  <!-- Menu Icon -->
+  <div class="menu-icon" onclick="toggleSidebar(this)">
+    <div class="menu-line"></div>
+    <div class="menu-line"></div>
+  </div>
+
+  <!-- Dark Mode Toggle -->
+  <div class="theme-toggle-wrapper">
+    <label class="switch">
+  <input type="checkbox" id="themeToggle">
+  <span class="slider"></span>
+</label>
+  </div>
+
+  <!-- Sidebar -->
+  <div id="mySidebar" class="sidebar">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+  <!-- Header -->
+  <header>
+   
+   
+    <p>Reach out to Rustylad</p>
+  </header>
+
+  <!-- Contact Form -->
+  <section class="tools">
+    <div class="tool-card">
+      <h2>Email</h2>
+      <p>rustylad.yt@gmail.com</p>
+    </div>
+    <div class="tool-card">
+      <h2>Instagram</h2>
+      <p>@Rustylad</p>
+    </div>
+    <div class="tool-card">
+      <h2>Leave a Message</h2>
+      <p> Write about your experience..</p>
+      
+    </div>
+  </section>
+
+  <!-- Script -->
+  <script>
+  const themeToggle = document.getElementById("themeToggle");
+  const sidebar = document.getElementById("mySidebar");
+  const overlay = document.getElementById("overlay");
+  const menuIcon = document.querySelector(".menu-icon");
+
+  // Load theme on page load
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark-mode");
+      if (themeToggle) themeToggle.checked = true;
+    }
+
+    // Disable right-click and copy
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("copy", e => e.preventDefault());
+    document.addEventListener("selectstart", e => e.preventDefault());
+  });
+
+  // Toggle theme and save preference
+  if (themeToggle) {
+    themeToggle.addEventListener("change", () => {
+      if (themeToggle.checked) {
+        document.body.classList.add("dark-mode");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.body.classList.remove("dark-mode");
+        localStorage.setItem("theme", "light");
+      }
+    });
+  }
+
+  // Sidebar controls
+  function toggleSidebar(icon) {
+    const isOpen = sidebar.style.left === "0px";
+    sidebar.style.left = isOpen ? "-50%" : "0px";
+    overlay.classList.toggle("active", !isOpen);
+    icon.classList.toggle("open", !isOpen);
+  }
+
+  function closeSidebar() {
+    sidebar.style.left = "-50%";
+    overlay.classList.remove("active");
+    if (menuIcon) menuIcon.classList.remove("open");
+  }
+</script>
 </body>
 </html>
