@@ -273,7 +273,6 @@
   top: 20px;
   left: 55px; /* adjust based on icon size */
   font-size: 1.7rem;
-  font-weight: ;
   color: var(--primary-color);
   opacity: 0;
   transition: opacity 0.4s, transform 0.4s;
