@@ -1,43 +1,91 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Me</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background: #000;
-      color: #00ff00;
-      font-family: monospace;
-      padding: 2rem;
-      line-height: 1.6;
-    }
-    main {
-      max-width: 800px;
-      margin: auto;
-      padding: 1rem;
-      background: #111;
-      border: 1px solid #00ff00;
-      border-radius: 10px;
-    }
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      opacity: 0.6;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | Rustylad</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <main>
-    <p>Welcome to my digital base. I'm <strong>Rustylad</strong>, also known as <em>rustylad.x</em>. I create tools, scripts, and web apps with a focus on ethical hacking, coding, and creativity.</p>
-    <p>Explore my projects, or drop me a message through the contact page. Always building, always learning.</p>
-  </main>  <footer>
-    <p>&copy; 2025 Rustylad. All rights reserved.</p>
-  </footer>
+
+  <!-- Menu Icon -->
+  <div class="menu-icon" onclick="toggleSidebar(this)">
+    <div class="menu-line"></div>
+    <div class="menu-line"></div>
+  </div>
+
+  <!-- Dark Mode Toggle -->
+  <div class="theme-toggle-wrapper">
+    <label class="switch">
+      <input type="checkbox" id="themeToggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <!-- Sidebar -->
+  <div id="mySidebar" class="sidebar">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+
+  <!-- Header -->
+  <header>     
+      
+      
+      
+  </header>
+
+  <!-- About Content -->
+  <section class="tools">
+    <div class="tool-card">
+      <h2>Who I Am</h2>
+      <p>I’m Rustylad — a creator of tools, apps, trackers, and bots for learning, automation, and ethical hacking.</p>
+    </div>
+    <div class="tool-card">
+      <h2>Mission</h2>
+      <p>To empower young developers and curious minds with tools, tutorials, and tech designed to build and learn freely.</p>
+    </div>
+    <div class="tool-card">
+      <h2>Stack</h2>
+      <p>Termux, Node.js, Python, Bash, Web Dev, OSINT tools, and custom-built systems.</p>
+    </div>
+  </section>
+
+  <!-- Script -->
+  <script>
+    const sidebar = document.getElementById("mySidebar");
+    const themeToggle = document.getElementById("themeToggle");
+    const menuIcon = document.querySelector(".menu-icon");
+    const overlay = document.getElementById("overlay");
+
+    function toggleSidebar(icon) {
+      const isOpen = sidebar.style.left === "0px";
+      sidebar.style.left = isOpen ? "-50%" : "0px";
+      overlay.classList.toggle("active", !isOpen);
+      icon.classList.toggle("open", !isOpen);
+    }
+
+    function closeSidebar() {
+      sidebar.style.left = "-50%";
+      overlay.classList.remove("active");
+      menuIcon.classList.remove("open");
+    }
+
+    themeToggle.addEventListener("change", () => {
+      document.body.classList.toggle("dark-mode");
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("contextmenu", e => e.preventDefault());
+      document.addEventListener("copy", e => e.preventDefault());
+      document.addEventListener("selectstart", e => e.preventDefault());
+    });
+  </script>
 </body>
 </html>
