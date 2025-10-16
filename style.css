@@ -267,7 +267,7 @@
         text-shadow: 0 0 5px var(--primary-color);
       }
     }
-#xeet-text {
+#xiper-text {
   position: fixed;
   top: 20px;
   left: 55px;
@@ -281,9 +281,9 @@
   pointer-events: none;
 }
 
-.menu-icon.open + #xeet-text {
+.menu-icon.open + #xiper-text {
   opacity: 1;
   pointer-events: auto;
   transform: translateX(4px);
 }
-}
+     }
